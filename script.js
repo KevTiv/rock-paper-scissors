@@ -1,6 +1,6 @@
 function computerPlay(){
     const nbChoice = 3; //Number of choices available to the computer
-    const minimChoice = 1; //The computer has to atleast make 1 choice
+    const minimChoice = 1; //The computer has to at least make 1 choice
 
     /* Generate a number between 1 & 3 to determine computer choice */
     let computerChoice = Math.floor(Math.random() * nbChoice) + minimChoice;
@@ -11,27 +11,52 @@ function computerPlay(){
     if (computerChoice === 3) return "Scissor";
 }
 
-function userPlay(){
-    let input = prompt("Enter your choice:");
-    let userInput = input.toLowerCase();
+const rockBtn = document.querySelector('#rockButton');
+rockBtn.addEventListener('click',()=>{
+    console.log("Rock button pressed!");
+    game(userPlay("rock"));
+});
 
-    if (userInput === "paper") return "Paper";
-    if (userInput === "rock") return "Rock";
-    if (userInput === "scissor") return "Scissor";
+const paperBtn = document.querySelector('#paperButton');
+paperBtn.addEventListener('click',()=>{
+    console.log("Paper button pressed!");
+    game(userPlay("paper"));
+});
+
+const scissorBtn = document.querySelector('#scissorButton');
+scissorBtn.addEventListener('click',()=>{
+    console.log("Scissor button pressed!");
+    game(userPlay("scissor"));
+});
+
+function userPlay(userInput){
+
+  if (userInput === "paper") return "Paper";
+  if (userInput === "rock") return "Rock";
+  if (userInput === "scissor") return "Scissor";
 }
+
 let userResult =0;
 let compResult = 0;
 
 function setComputerScore(){
     compResult += 1;
     console.log("Computer score: ",compResult);
+    if(compResult === 5){
+        let winner = winCheck();
+        alert(winner);
+        location.reload();
+    }
 }
 function setUserScore(){
     userResult += 1;
     console.log("User score: ",userResult);
+    if(userResult === 5){
+        let winner = winCheck();
+        alert(winner);
+        location.reload();
+    }
 }
-
-
 
 function playRound(playerSelection, computerSelection){
     // Computer win con
@@ -75,17 +100,29 @@ function getCompScore(){
     return compResult;
 }
 //console.log(playRound(playerSelection, computerSelection));
-function game(){
-    for (let i=0; i< 5; i++){
-        const playerSelection = userPlay();
-        const computerSelection = computerPlay();
-        console.log(playRound(playerSelection, computerSelection));
-    }
-    const computerScore = getCompScore();
-    const userScore = getUserScore();
-    if (computerScore > userScore) return "Computer won this game!";
-    if (userScore > computerScore) return "You won this game!";
-    if (computerScore === userScore) return "It's a draw";
+const winText = document.querySelector('.winnerText');
+const currentUserScore = document.querySelector('#userScore');
+const currentCompResult = document.querySelector('#compScore')
+
+function game(userChoice){
+
+    const computerSelection = computerPlay();
+    const playerSelection = userChoice;
+    winText.textContent = playRound(playerSelection, computerSelection);
+
+    currentUserScore.textContent = "User score: "+ getUserScore();
+    currentCompResult.textContent = "Computer score: "+ getCompScore();
 }
 
-console.log(game());
+function winCheck(){
+
+    const computerScore = getCompScore();
+    const userScore = getUserScore();
+
+    if (computerScore > userScore) return "Computer won this game!";
+    if (userScore > computerScore) return "You won this game!";
+    //if (computerScore === userScore) return "This game is a draw";
+}
+
+
+//console.log(game());
