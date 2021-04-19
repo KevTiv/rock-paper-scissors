@@ -119,8 +119,11 @@ function winCheck(){
     const computerScore = getCompScore();
     const userScore = getUserScore();
 
-    if (computerScore > userScore) return "Computer won this game!";
-    if (userScore > computerScore) return "You won this game!";
+    if (computerScore > userScore) return ("Computer won this game!" + "\n\nFinal Score" +
+    "\nYour score: " + getUserScore() + "\t\tComputer Score: " + getCompScore());
+
+    if (userScore > computerScore) return ("You won this game!"+ "\n\nFinal Score" +
+    "\nYour score: " + getUserScore() + "\t\tComputer Score: " + getCompScore());
     //if (computerScore === userScore) return "This game is a draw";
 }
 
