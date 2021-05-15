@@ -99,15 +99,39 @@ function getUserScore(){
 function getCompScore(){
     return compResult;
 }
+
+const userEmoji = document.querySelector('#humanEmoji');
+const compEmoji = document.querySelector('#computerEmoji');
+
+const paper = "🤚";
+const rock = "👊";
+const scissor = "🖖";
+
+function setHumanEmojiChoice(choice){
+    if(choice === "Paper") return userEmoji.textContent = paper;
+
+    if(choice === "Rock") return userEmoji.textContent = rock;
+
+    if(choice === "Scissor") return userEmoji.textContent = scissor;
+}
+function setComputerEmojiChoice(choice){
+    if(choice === "Paper") return compEmoji.textContent = paper;
+
+    if(choice === "Rock") return compEmoji.textContent = rock;
+
+    if(choice === "Scissor") return compEmoji.textContent = scissor;
+}
 //console.log(playRound(playerSelection, computerSelection));
 const winText = document.querySelector('.winnerText');
 const currentUserScore = document.querySelector('#userScore');
-const currentCompResult = document.querySelector('#compScore')
+const currentCompResult = document.querySelector('#compScore');
 
 function game(userChoice){
 
     const computerSelection = computerPlay();
     const playerSelection = userChoice;
+    setHumanEmojiChoice(playerSelection);
+    setComputerEmojiChoice(computerSelection);
     winText.textContent = playRound(playerSelection, computerSelection);
 
     currentUserScore.textContent = "User score: "+ getUserScore();
